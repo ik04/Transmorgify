@@ -5,9 +5,11 @@ const PORT = process.env.PORT || 8000;
 const axios = require("axios");
 const cors = require("cors");
 
-app.use(cors({ origin: process.env.CLIENT_URL }));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
-
+app.get("/healthcheck", (req, res) => {
+  res.status(200).json({ message: "Hello from Transmorgify ~IK" });
+});
 app.post("/convert", async (req, res) => {
   console.log(req.body);
   try {
@@ -30,10 +32,10 @@ app.post("/convert", async (req, res) => {
 
     const response = await axios.request(options);
     console.log(response.data);
-    const download = response.data.url;
-    res
-      .status(200)
-      .json({ message: "Converted successfully!", download: download });
+    res.status(200).json({
+      message: "Converted successfully!",
+      result: response.data.result,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
