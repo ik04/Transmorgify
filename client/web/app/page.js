@@ -5,12 +5,25 @@ import { toast } from "sonner";
 
 const page = () => {
   const [link, setLink] = useState("");
+
+  const isValidYouTubeLink = (url) => {
+    const youtubeRegex =
+      /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+    return youtubeRegex.test(url);
+  };
+
   const convert = async () => {
     try {
-      if (!link || link == "" || link !== undefined) {
-        toast.error("Please Enter your Link!");
+      if (link === "" || link === null) {
+        toast.warning("Please Enter your Link!");
         return;
       }
+
+      if (!isValidYouTubeLink(link)) {
+        toast.error("Please Enter a valid YouTube link!");
+        return;
+      }
+
       const resp = await axios.post(
         `${process.env.NEXT_PUBLIC_PUBLIC_DOMAIN}/convert`,
         { link }
