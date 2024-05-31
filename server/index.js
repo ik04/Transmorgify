@@ -3,7 +3,9 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 8000;
 const axios = require("axios");
+const cors = require("cors");
 
+app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use(express.json());
 
 app.post("/convert", async (req, res) => {
