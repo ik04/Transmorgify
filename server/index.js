@@ -4,6 +4,8 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const axios = require("axios");
 const cors = require("cors");
+const ConvertLink = require("./validation/ConvertLink");
+const { ZodError } = require("zod");
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
@@ -17,12 +19,13 @@ app.post("/convert", async (req, res) => {
     if (!link) {
       res.status(400).json({ error: "Link is required!" });
     }
+    const validated = ConvertLink.parse({ link });
 
     const options = {
       method: "GET",
       url: "https://youtube-mp315.p.rapidapi.com/",
       params: {
-        url: link,
+        url: validated.link,
       },
       headers: {
         "X-RapidAPI-Key": process.env.RAPID_API_KEY,
@@ -37,7 +40,12 @@ app.post("/convert", async (req, res) => {
       result: response.data.result,
     });
   } catch (error) {
-    console.error(error);
+    if (error instanceof ZodError) {
+      // Handle Zod validation error
+      console.error("Validation error:", error.errors);
+      return res.status(400).json({ error: error.errors[0].message });
+    }
+    console.error("Server error:", error);
     res.status(500).json({ message: "Server Error" });
   }
 });
