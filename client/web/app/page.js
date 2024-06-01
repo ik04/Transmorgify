@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -8,6 +9,9 @@ const page = () => {
   const [link, setLink] = useState("");
   const [loading, setLoading] = useState(true);
   const [embedLink, setEmbedLink] = useState("");
+  const [download, setDownload] = useState("");
+  const [title, setTitle] = useState("");
+
   const resultRef = useRef(null);
 
   const isValidYouTubeLink = (url) => {
@@ -21,7 +25,9 @@ const page = () => {
       `${process.env.NEXT_PUBLIC_PUBLIC_DOMAIN}/convert`,
       { link }
     );
-    console.log(resp);
+    console.log(resp.data);
+    setDownload(resp.data.result.url);
+    setTitle(resp.data.result.title);
   };
 
   const getYouTubeEmbedUrl = (url) => {
@@ -54,7 +60,15 @@ const page = () => {
           }, 500);
           return `Video has been Morphed!`;
         },
-        error: "Error Morphing the Video!",
+        error: (error) => {
+          setLoading(false);
+          console.error(error);
+          if (error.response && error.response.status === 404) {
+            return "Video not found!";
+          } else {
+            return `${error.message}`;
+          }
+        },
       });
     } catch (error) {
       console.error(error);
@@ -144,8 +158,7 @@ const page = () => {
                 height={100}
               />
             </div>
-            <div className="bg-mediumSlateBlue bg-gradient-to-b from-mediumSlateBlue to-heliotrope md:h-[60%] md:w-[50%] rounded-lg flex flex-col items-center justify-center">
-              {/* <div className="w-[90%] bg-gray-400 h-[80%]"></div> */}
+            <div className="bg-mediumSlateBlue bg-gradient-to-b from-mediumSlateBlue to-heliotrope md:h-[60%] md:w-[50%] rounded-lg flex flex-col items-center space-y-5 justify-center p-8">
               <iframe
                 width="560"
                 height="315"
@@ -157,6 +170,48 @@ const page = () => {
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
+              <div className="title text-main font-display capitalize text-center text-3xl mb-2">
+                {title}
+              </div>
+              <div className="buttons flex space-x-5">
+                <div
+                  onClick={() => location.reload()}
+                  className="capitalize text-main font-bold font-display rounded-lg py-2 px-4 text-3xl flex items-center space-x-2 cursor-pointer"
+                >
+                  <p>Redo</p>
+                  <Image
+                    src={"/assets/reload.svg"}
+                    className="mt-1"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <Link
+                  href={link}
+                  target="_blank"
+                  className="capitalize border-main text-main font-bold font-display border-2 rounded-lg py-1 px-3 text-3xl flex items-center space-x-2 cursor-pointer"
+                >
+                  <p>Visit</p>
+                  <Image
+                    src={"/assets/open-link.svg"}
+                    className=""
+                    width={50}
+                    height={50}
+                  />
+                </Link>
+                <Link
+                  href={download}
+                  className="capitalize bg-main text-heliotrope border-main font-display border-2 rounded-lg py-1 px-3 text-3xl flex items-center space-x-3 cursor-pointer"
+                >
+                  <p>Download mp3</p>
+                  <Image
+                    src={"/assets/download.svg"}
+                    className=""
+                    width={50}
+                    height={50}
+                  />
+                </Link>
+              </div>
             </div>
           </div>
         </>
