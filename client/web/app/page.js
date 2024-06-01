@@ -68,13 +68,16 @@ const page = () => {
             className="bg-transparent w-full md:text-3xl px-2 focus:outline-none font-display placeholder:text-main placeholder:font-display placeholder:font-bold"
             onChange={(e) => setLink(e.target.value)}
           />
-          <div className="convert mb-2 flex items-center">
+          <div
+            onClick={convert}
+            className="convert md:mb-2 flex items-center cursor-pointer"
+          >
             <h2 className="text-stroke-lg text-transparent text-stroke-main font-base md:text-3xl">
               Morph
             </h2>
             <Image
               src={"/assets/double-arrow.svg"}
-              className="mt-1"
+              className="md:mt-1"
               width={70}
               height={70}
             />
@@ -86,3 +89,11 @@ const page = () => {
 };
 
 export default page;
+/**
+ * hiiiiiiii babyyy!!!!!! ure cuteee, and pretyy, and so handsome, 
+and soo kind, and so smart,
+ very goated frfr,and make me want to better person, anyways 
+lyyyyy, good luck for today, have fun at the mall!!!!!!!! 
+ * 
+ * 
+ */
