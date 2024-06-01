@@ -28,13 +28,31 @@ module.exports = {
     function ({ addUtilities }) {
       addUtilities({
         ".text-stroke": {
-          "-webkit-text-stroke": "1px",
+          "-webkit-text-stroke-width": "1px",
         },
         ".text-stroke-sm": {
-          "-webkit-text-stroke": "0.5px",
+          "-webkit-text-stroke-width": "0.5px",
         },
         ".text-stroke-lg": {
-          "-webkit-text-stroke": "2px",
+          "-webkit-text-stroke-width": "2px",
+        },
+        ".text-stroke-xl": {
+          "-webkit-text-stroke-width": "3px",
+        },
+        ".text-stroke-2xl": {
+          "-webkit-text-stroke-width": "4px",
+        },
+        ".text-stroke-pinkMagenta": {
+          "-webkit-text-stroke-color": "#FFA3FD",
+        },
+        ".text-stroke-heliotrope": {
+          "-webkit-text-stroke-color": "#E384FF",
+        },
+        ".text-stroke-mediumSlateBlue": {
+          "-webkit-text-stroke-color": "#865DFF",
+        },
+        ".text-stroke-main": {
+          "-webkit-text-stroke-color": "#191825",
         },
       });
     },
