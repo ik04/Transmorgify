@@ -35,7 +35,8 @@ const page = () => {
   };
 
   return (
-    <div>
+    <div className="h-screen bg-red-300">
+      <h1>Transmorgify</h1>
       <input
         type="text"
         className="border border-black"

@@ -7,6 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ["Lato", "sans"],
+        base: ["Lacquer", "sans"],
+      },
+      colors: {
+        main: "#191825",
+        pinkMagenta: "#FFA3FD",
+        heliotrope: "#E384FF",
+        mediumSlateBlue: "#865DFF",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -14,5 +24,19 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".text-stroke": {
+          "-webkit-text-stroke": "1px",
+        },
+        ".text-stroke-sm": {
+          "-webkit-text-stroke": "0.5px",
+        },
+        ".text-stroke-lg": {
+          "-webkit-text-stroke": "2px",
+        },
+      });
+    },
+  ],
 };
