@@ -1,12 +1,14 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { toast } from "sonner";
 
 const page = () => {
   const [link, setLink] = useState("");
   const [loading, setLoading] = useState(true);
+  const [embedLink, setEmbedLink] = useState("");
+  const resultRef = useRef(null);
 
   const isValidYouTubeLink = (url) => {
     const youtubeRegex =
@@ -20,6 +22,15 @@ const page = () => {
       { link }
     );
     console.log(resp);
+  };
+
+  const getYouTubeEmbedUrl = (url) => {
+    const urlObj = new URL(url);
+    if (urlObj.hostname === "youtu.be") {
+      return `https://www.youtube.com/embed/${urlObj.pathname.slice(1)}`;
+    }
+    const params = new URLSearchParams(urlObj.search);
+    return `https://www.youtube.com/embed/${params.get("v")}`;
   };
 
   const convert = async () => {
@@ -36,8 +47,11 @@ const page = () => {
       toast.promise(callConvertEndpoint, {
         loading: "Morphing...",
         success: () => {
+          setEmbedLink(getYouTubeEmbedUrl(link));
           setLoading(false);
-          // * add smooth scroll here
+          setTimeout(() => {
+            resultRef.current.scrollIntoView({ behavior: "smooth" });
+          }, 500);
           return `Video has been Morphed!`;
         },
         error: "Error Morphing the Video!",
@@ -84,10 +98,11 @@ const page = () => {
           </label>
           <input
             id="link"
+            value={link}
             type="text"
             name="link"
             placeholder="Enter your Link here"
-            className="bg-transparent w-full md:text-3xl px-2 focus:outline-none font-display placeholder:text-main placeholder:font-display placeholder:font-bold"
+            className="bg-transparent w-full md:text-3xl px-2 focus:outline-none font-display font-bold placeholder:text-main placeholder:font-display placeholder:font-bold"
             onChange={(e) => setLink(e.target.value)}
           />
           <div
@@ -106,25 +121,46 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="h-screen flex flex-col">
-        <div className="title flex justify-center items-center">
-          <Image
-            src={"/assets/wave-1.svg"}
-            className="skew-x-12"
-            width={100}
-            height={100}
-          />
-          <h1 className="uppercase bg-gradient-to-r from-mediumSlateBlue via-heliotrope to-heliotrope bg-clip-text text-transparent font-display md:text-6xl">
-            Results
-          </h1>
-          <Image
-            src={"/assets/wave-1.svg"}
-            className="-skew-x-12"
-            width={100}
-            height={100}
-          />
-        </div>
-      </div>
+      {!loading && (
+        <>
+          <div
+            ref={resultRef}
+            className="h-screen flex flex-col items-center justify-center space-y-10"
+          >
+            <div className="title flex justify-center items-center">
+              <Image
+                src={"/assets/wave-1.svg"}
+                className="skew-x-12"
+                width={100}
+                height={100}
+              />
+              <h1 className="uppercase bg-gradient-to-r from-mediumSlateBlue via-heliotrope to-heliotrope bg-clip-text text-transparent font-display md:text-6xl">
+                Results
+              </h1>
+              <Image
+                src={"/assets/wave-1.svg"}
+                className="-skew-x-12"
+                width={100}
+                height={100}
+              />
+            </div>
+            <div className="bg-mediumSlateBlue bg-gradient-to-b from-mediumSlateBlue to-heliotrope md:h-[60%] md:w-[50%] rounded-lg flex flex-col items-center justify-center">
+              {/* <div className="w-[90%] bg-gray-400 h-[80%]"></div> */}
+              <iframe
+                width="560"
+                height="315"
+                className="w-[90%] h-[80%]"
+                src={embedLink}
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
