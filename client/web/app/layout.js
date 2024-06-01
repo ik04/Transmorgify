@@ -13,7 +13,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toaster richColors />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            unstyled: true,
+            classNames: {
+              error: "text-mediumSlateBlue flex items-center space-x-2",
+              warning: "text-mediumSlateBlue flex items-center space-x-2",
+              success: "text-heliotrope flex items-center space-x-2",
+              loading: "text-heliotrope flex items-center space-x-2",
+            },
+          }}
+        />
         {children}
       </body>
     </html>

@@ -6,11 +6,20 @@ import { toast } from "sonner";
 
 const page = () => {
   const [link, setLink] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const isValidYouTubeLink = (url) => {
     const youtubeRegex =
       /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
     return youtubeRegex.test(url);
+  };
+
+  const callConvertEndpoint = async () => {
+    const resp = await axios.post(
+      `${process.env.NEXT_PUBLIC_PUBLIC_DOMAIN}/convert`,
+      { link }
+    );
+    console.log(resp);
   };
 
   const convert = async () => {
@@ -24,27 +33,40 @@ const page = () => {
         toast.error("Please Enter a valid YouTube link!");
         return;
       }
-
-      const resp = await axios.post(
-        `${process.env.NEXT_PUBLIC_PUBLIC_DOMAIN}/convert`,
-        { link }
-      );
-      console.log(resp);
+      toast.promise(callConvertEndpoint, {
+        loading: "Morphing...",
+        success: () => {
+          setLoading(false);
+          // * add smooth scroll here
+          return `Video has been Morphed!`;
+        },
+        error: "Error Morphing the Video!",
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="">
-      <div className="h-screen bg-main flex flex-col justify-center items-center space-y-16">
+    <div className="bg-main">
+      <div className="h-screen flex flex-col justify-center items-center space-y-16">
         <div className="title-and-slogan flex flex-col justify-center items-center space-y-3">
           <div className="title flex justify-center items-center gap-3">
-            <Image src={"/assets/wave-2.svg"} width={100} height={100} />
+            <Image
+              src={"/assets/wave-2.svg"}
+              className="skew-x-12"
+              width={100}
+              height={100}
+            />
             <h1 className="text-stroke-xl font-display md:text-[120px] text-center text-main text-stroke-heliotrope uppercase tracking-widest">
               Transmorgify
             </h1>
-            <Image src={"/assets/wave-2.svg"} width={100} height={100} />
+            <Image
+              src={"/assets/wave-2.svg"}
+              className="-skew-x-12"
+              width={100}
+              height={100}
+            />
           </div>
           <div className="slogan font-base text-mediumSlateBlue text-center md:text-5xl">
             “Morph your <span className="font-display uppercase">links</span>{" "}
@@ -82,6 +104,25 @@ const page = () => {
               height={70}
             />
           </div>
+        </div>
+      </div>
+      <div className="h-screen flex flex-col">
+        <div className="title flex justify-center items-center">
+          <Image
+            src={"/assets/wave-1.svg"}
+            className="skew-x-12"
+            width={100}
+            height={100}
+          />
+          <h1 className="uppercase bg-gradient-to-r from-mediumSlateBlue via-heliotrope to-heliotrope bg-clip-text text-transparent font-display md:text-6xl">
+            Results
+          </h1>
+          <Image
+            src={"/assets/wave-1.svg"}
+            className="-skew-x-12"
+            width={100}
+            height={100}
+          />
         </div>
       </div>
     </div>
