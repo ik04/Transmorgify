@@ -219,7 +219,7 @@ const page = () => {
           </div>
         </>
       )}
-      <div className="flex items-center justify-between footer border-t-4 border-heliotrope h-60">
+      <div className="flex items-center justify-between footer border-t-4 border-heliotrope h-60 px-20">
         <div className="Contributor flex items-center">
           <Image
             src={"/assets/footer-ghost.png"}
@@ -232,18 +232,27 @@ const page = () => {
               Kanak
             </h2>
             <div className="links flex">
-              <Image
-                src={"/assets/github.svg"}
-                className=""
-                width={60}
-                height={60}
-              />
-              <Image
-                src={"/assets/linkedin.svg"}
-                className=""
-                width={60}
-                height={60}
-              />
+              <Link href={"https://github.com/kaaanaakk"} target="_blank">
+                <Image
+                  src={"/assets/github.svg"}
+                  className=""
+                  width={60}
+                  height={60}
+                />
+              </Link>
+              <Link
+                href={
+                  "https://www.linkedin.com/in/kanak-shrivastava-5a71351a9/"
+                }
+                target="_blank"
+              >
+                <Image
+                  src={"/assets/linkedin.svg"}
+                  className=""
+                  width={60}
+                  height={60}
+                />
+              </Link>
             </div>
           </div>
         </div>
@@ -260,18 +269,25 @@ const page = () => {
               Ishaan
             </h2>
             <div className="links flex">
-              <Image
-                src={"/assets/github.svg"}
-                className=""
-                width={60}
-                height={60}
-              />
-              <Image
-                src={"/assets/linkedin.svg"}
-                className=""
-                width={60}
-                height={60}
-              />
+              <Link href={"https://github.com/ik04"} target="_blank">
+                <Image
+                  src={"/assets/github.svg"}
+                  className=""
+                  width={60}
+                  height={60}
+                />
+              </Link>
+              <Link
+                href={"https://www.linkedin.com/in/ishaan-khurana-398114212/"}
+                target="_blank"
+              >
+                <Image
+                  src={"/assets/linkedin.svg"}
+                  className=""
+                  width={60}
+                  height={60}
+                />
+              </Link>
             </div>
           </div>
         </div>
