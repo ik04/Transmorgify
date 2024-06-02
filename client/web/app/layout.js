@@ -22,6 +22,7 @@ export default function RootLayout({ children }) {
               warning: "text-mediumSlateBlue flex items-center space-x-2",
               success: "text-heliotrope flex items-center space-x-2",
               loading: "text-heliotrope flex items-center space-x-2",
+              info: "text-mediumSlateBlue flex items-center space-x-2",
             },
           }}
         />
