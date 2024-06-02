@@ -10,7 +10,7 @@ const VideoNotFoundException = require("./Exceptions/VideoNotFoundException");
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
-app.get("/healthcheck", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello from Transmorgify ~IK" });
 });
 app.post("/convert", async (req, res) => {
