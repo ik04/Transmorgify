@@ -158,11 +158,11 @@ const page = () => {
                 height={100}
               />
             </div>
-            <div className="bg-mediumSlateBlue bg-gradient-to-b from-mediumSlateBlue to-heliotrope md:h-[60%] md:w-[50%] rounded-lg flex flex-col items-center space-y-5 justify-center p-8">
+            <div className="bg-mediumSlateBlue bg-gradient-to-b from-mediumSlateBlue to-heliotrope md:h-[70%] md:w-[50%] rounded-lg flex flex-col items-center space-y-5 justify-center p-8">
               <iframe
                 width="560"
                 height="315"
-                className="w-[90%] h-[80%]"
+                className="w-full h-full"
                 src={embedLink}
                 title="YouTube video player"
                 frameborder="0"
@@ -216,6 +216,63 @@ const page = () => {
           </div>
         </>
       )}
+      <div className="flex items-center justify-between footer border-t-4 border-heliotrope h-60">
+        <div className="Contributor flex items-center">
+          <Image
+            src={"/assets/footer-ghost.png"}
+            className="hover:animate-pulse"
+            width={200}
+            height={200}
+          />
+          <div className="flex-col flex space-y-3">
+            <h2 className="text-heliotrope text-center font-base uppercase text-3xl">
+              Kanak
+            </h2>
+            <div className="links flex">
+              <Image
+                src={"/assets/github.svg"}
+                className=""
+                width={60}
+                height={60}
+              />
+              <Image
+                src={"/assets/linkedin.svg"}
+                className=""
+                width={60}
+                height={60}
+              />
+            </div>
+          </div>
+        </div>
+        <h1 className="text-heliotrope font-display text-3xl">Made by</h1>
+        <div className="Contributor flex-row-reverse flex items-center">
+          <Image
+            src={"/assets/footer-ghost.png"}
+            className="hover:animate-pulse"
+            width={200}
+            height={200}
+          />
+          <div className="flex-col flex space-y-3">
+            <h2 className="text-heliotrope text-center font-base uppercase text-3xl">
+              Ishaan
+            </h2>
+            <div className="links flex">
+              <Image
+                src={"/assets/github.svg"}
+                className=""
+                width={60}
+                height={60}
+              />
+              <Image
+                src={"/assets/linkedin.svg"}
+                className=""
+                width={60}
+                height={60}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
