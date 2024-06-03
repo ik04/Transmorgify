@@ -61,10 +61,11 @@ app.post("/convert", async (req, res) => {
       console.error("Validation error:", error.errors);
       return res.status(400).json({ error: error.errors[0].message });
     }
-    if (error instanceof VideoNotFoundException) {
+    if (error instanceof VideoNotFoundException || error.code == 404) {
       return res.status(404).json({ error: "YouTube Video Not Found" });
+    } else {
+      return res.status(500).json({ message: "Server Error" });
     }
-    return res.status(500).json({ message: "Server Error" });
   }
 });
 

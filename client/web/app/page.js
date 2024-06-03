@@ -82,7 +82,7 @@ const page = () => {
             return "Video not found!";
           } else {
             setLoading(true);
-            return `${error.message}`;
+            return `${error.response.data.message}`;
           }
         },
       });
@@ -102,7 +102,7 @@ const page = () => {
               width={100}
               height={100}
             />
-            <h1 className="md:text-stroke-xl text-stroke-base font-display md:text-[120px] text-3xl text-center text-main text-stroke-heliotrope uppercase tracking-widest">
+            <h1 className="md:text-stroke-xl text-stroke-base font-display md:text-[120px] text-2xl text-center text-main text-stroke-heliotrope uppercase tracking-widest">
               Transmorgify
             </h1>
             <Image
