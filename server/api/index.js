@@ -4,57 +4,67 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const axios = require("axios");
 const cors = require("cors");
-const ConvertLink = require("./validation/ConvertLink");
+const ConvertLink = require("../validation/ConvertLink");
 const { ZodError } = require("zod");
-const VideoNotFoundException = require("./Exceptions/VideoNotFoundException");
+const VideoNotFoundException = require("../Exceptions/VideoNotFoundException");
+const allowCors = require("../utils/AllowCors");
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: "Content-Type",
+  })
+);
+
 app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello from Transmorgify ~IK" });
 });
 app.post("/convert", async (req, res) => {
-  console.log(req.body);
   try {
+    console.log("Received request:", req.body);
     const link = req.body.link;
     if (!link) {
-      res.status(400).json({ error: "Link is required!" });
+      return res.status(400).json({ error: "Link is required!" });
     }
+
     const validated = ConvertLink.parse({ link });
 
     const options = {
       method: "GET",
       url: "https://youtube-mp315.p.rapidapi.com/",
-      params: {
-        url: validated.link,
-      },
+      params: { url: validated.link },
       headers: {
         "X-RapidAPI-Key": process.env.RAPID_API_KEY,
         "X-RapidAPI-Host": "youtube-mp315.p.rapidapi.com",
       },
     };
+
     const response = await axios.request(options);
+    console.log("API response:", response.data);
     const video = response.data.result[0];
-    if (video.title == null) {
-      throw new VideoNotFoundException("Youtube Video Not Found");
-      // ? how can i optimize this
+
+    if (!video || !video.title) {
+      throw new VideoNotFoundException("YouTube Video Not Found");
     }
-    res.status(200).json({
+
+    return res.status(200).json({
       message: "Converted successfully!",
-      result: response.data.result[0],
+      result: video,
     });
   } catch (error) {
+    console.error("Error during /convert endpoint processing:", error);
+
     if (error instanceof ZodError) {
-      // Handle Zod validation error
       console.error("Validation error:", error.errors);
       return res.status(400).json({ error: error.errors[0].message });
     }
-    if (error.code == 404) {
-      res.status(error.code).json({ error: "Youtube Video Not Found" });
-    } else {
-      console.error("Server error:", error);
-      res.status(500).json({ message: "Server Error" });
+    if (error instanceof VideoNotFoundException) {
+      return res.status(404).json({ error: "YouTube Video Not Found" });
     }
+    return res.status(500).json({ message: "Server Error" });
   }
 });
 

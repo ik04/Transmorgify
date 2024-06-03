@@ -23,7 +23,14 @@ const page = () => {
   const callConvertEndpoint = async () => {
     const resp = await axios.post(
       `${process.env.NEXT_PUBLIC_PUBLIC_DOMAIN}/convert`,
-      { link }
+      { link },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
     );
     console.log(resp.data);
     setDownload(resp.data.result.url);
@@ -67,8 +74,10 @@ const page = () => {
           setLoading(false);
           console.error(error);
           if (error.response && error.response.status === 404) {
+            setLoading(true);
             return "Video not found!";
           } else {
+            setLoading(true);
             return `${error.message}`;
           }
         },
