@@ -2,7 +2,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { toast } from "sonner";
 
 const page = () => {
@@ -43,9 +43,6 @@ const page = () => {
     setDownload(resp.data.result.url);
     setTitle(resp.data.result.title);
   };
-  useEffect(() => {
-    toast.info("Site is not responsive yet");
-  }, []);
 
   const getYouTubeEmbedUrl = (url) => {
     const urlObj = new URL(url);

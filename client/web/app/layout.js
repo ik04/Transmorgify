@@ -18,11 +18,15 @@ export default function RootLayout({ children }) {
           toastOptions={{
             unstyled: true,
             classNames: {
-              error: "text-mediumSlateBlue flex items-center space-x-2",
-              warning: "text-mediumSlateBlue flex items-center space-x-2",
-              success: "text-heliotrope flex items-center space-x-2",
-              loading: "text-heliotrope flex items-center space-x-2",
-              info: "text-mediumSlateBlue flex items-center space-x-2",
+              error:
+                "text-mediumSlateBlue flex items-center space-x-2 justify-center",
+              warning:
+                "text-mediumSlateBlue flex items-center space-x-2 justify-center",
+              success:
+                "text-heliotrope flex items-center space-x-2 justify-center",
+              loading:
+                "text-heliotrope flex items-center space-x-2 justify-center",
+              info: "text-mediumSlateBlue flex items-center space-x-2 justify-center",
             },
           }}
         />
