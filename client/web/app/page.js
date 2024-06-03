@@ -153,7 +153,7 @@ const page = () => {
           Disclaimer: the site supports youtube and youtube music links only
         </div>
       </div>
-      {loading && (
+      {!loading && (
         <>
           <div
             ref={resultRef}
