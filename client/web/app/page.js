@@ -2,7 +2,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { toast } from "sonner";
 
 const page = () => {
@@ -13,9 +13,6 @@ const page = () => {
   const [title, setTitle] = useState("");
 
   const resultRef = useRef(null);
-  useEffect(() => {
-    setLink("");
-  }, []);
 
   const isValidYouTubeLink = (url) => {
     const youtubeRegex =
@@ -129,6 +126,7 @@ const page = () => {
             />
           </label>
           <input
+            autoComplete="off"
             id="link"
             value={link}
             type="text"
