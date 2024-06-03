@@ -153,7 +153,7 @@ const page = () => {
           Disclaimer: the site supports youtube and youtube music links only
         </div>
       </div>
-      {!loading && (
+      {loading && (
         <>
           <div
             ref={resultRef}
@@ -219,8 +219,8 @@ const page = () => {
                 </Link>
                 <Link
                   href={download}
-                  className="capitalize bg-main text-heliotrope border-main font-display border-2 rounded-lg md:py-1 px-3 text-xs
-                   md:text-3xl flex items-center md:space-x-3 cursor-pointer"
+                  className="capitalize bg-main text-heliotrope border-main font-display border-2 rounded-lg md:py-1 px-4 md:px-3 text-xs
+                   md:text-3xl flex items-center justify-center md:space-x-3 cursor-pointer"
                 >
                   <p>Download mp3</p>
                   <Image
