@@ -96,35 +96,34 @@ const page = () => {
 
   return (
     <div className="bg-main">
-      <div className="h-screen flex flex-col justify-center items-center space-y-16">
-        <div className="title-and-slogan flex flex-col justify-center items-center space-y-3">
+      <div className="h-screen flex flex-col justify-center items-center md:space-y-16 space-y-4">
+        <div className="title-and-slogan flex flex-col justify-center items-center space-y-3 md:space-y-10">
           <div className="title flex justify-center items-center gap-3">
             <Image
               src={"/assets/wave-2.svg"}
-              className="skew-x-12"
+              className="skew-x-12 w-10 md:w-28"
               width={100}
               height={100}
             />
-            <h1 className="text-stroke-xl font-display md:text-[120px] text-center text-main text-stroke-heliotrope uppercase tracking-widest">
+            <h1 className="md:text-stroke-xl text-stroke-lg font-display md:text-[120px] text-2xl text-center text-main text-stroke-heliotrope uppercase tracking-widest">
               Transmorgify
             </h1>
             <Image
               src={"/assets/wave-2.svg"}
-              className="-skew-x-12"
+              className="-skew-x-12 w-10 md:w-28"
               width={100}
               height={100}
             />
           </div>
-          <div className="slogan font-base text-mediumSlateBlue text-center md:text-5xl">
-            “Morph your <span className="font-display uppercase">links</span>{" "}
-            into melody”
+          <div className="slogan font-base text-mediumSlateBlue text-center md:text-5xl text-lg">
+            “Morph your <span className="uppercase">links</span> into melody”
           </div>
         </div>
-        <div className="bg-gradient-to-br  from-[#CF5FCD] via-[#CF5FCD] via-40% to-mediumSlateBlue md:h-28 md:w-[63%] rounded-full flex items-center px-5">
+        <div className="bg-gradient-to-br from-[#CF5FCD] via-[#CF5FCD] via-40% to-mediumSlateBlue md:h-28 md:w-[63%] w-[90%] rounded-full flex items-center px-3 md:px-5">
           <label htmlFor="link">
             <Image
               src={"/assets/link.svg"}
-              className="mt-1"
+              className="md:mt-1 w-16 md:w-20"
               width={70}
               height={70}
             />
@@ -142,16 +141,19 @@ const page = () => {
             onClick={convert}
             className="convert md:mb-2 flex items-center cursor-pointer"
           >
-            <h2 className="text-stroke-lg text-transparent text-stroke-main font-base md:text-3xl">
+            <h2 className="text-stroke-base md:text-stroke-lg text-transparent text-stroke-main font-base text-sm md:text-3xl">
               Morph
             </h2>
             <Image
               src={"/assets/double-arrow.svg"}
-              className="md:mt-1"
+              className="md:mt-1 w-14 md:w-20"
               width={70}
               height={70}
             />
           </div>
+        </div>
+        <div className="text-pinkMagenta capitalize text-center w-[80%] text-xs font-display md:text-lg font-light">
+          Disclaimer: the site supports youtube and youtube music links only
         </div>
       </div>
       {!loading && (
@@ -235,23 +237,23 @@ const page = () => {
           </div>
         </>
       )}
-      <div className="flex items-center justify-between footer border-t-4 border-heliotrope h-60 px-20">
+      <div className="flex flex-row justify-around items-center md:items-center md:justify-between footer border-t-4 border-heliotrope md:h-60 md:px-20 py-7 px-5">
         <div className="Contributor flex items-center">
           <Image
             src={"/assets/footer-ghost.png"}
-            className="hover:animate-pulse"
+            className="hover:animate-pulse md:block hidden"
             width={200}
             height={200}
           />
           <div className="flex-col flex space-y-3">
-            <h2 className="text-heliotrope text-center font-base uppercase text-3xl">
+            <h2 className="text-heliotrope text-center font-base uppercase md:text-3xl text-xl">
               Kanak
             </h2>
             <div className="links flex">
               <Link href={"https://github.com/kaaanaakk"} target="_blank">
                 <Image
                   src={"/assets/github.svg"}
-                  className=""
+                  className="md:w-16 w-10"
                   width={60}
                   height={60}
                 />
@@ -264,7 +266,7 @@ const page = () => {
               >
                 <Image
                   src={"/assets/linkedin.svg"}
-                  className=""
+                  className="md:w-16 w-10"
                   width={60}
                   height={60}
                 />
@@ -272,23 +274,25 @@ const page = () => {
             </div>
           </div>
         </div>
-        <h1 className="text-heliotrope font-display text-3xl">Made by</h1>
-        <div className="Contributor flex-row-reverse flex items-center">
+        <h1 className="text-heliotrope font-display text-3xl md:block hidden">
+          Made by
+        </h1>
+        <div className="Contributor md:flex-row-reverse flex items-center">
           <Image
             src={"/assets/footer-ghost.png"}
-            className="hover:animate-pulse"
+            className="hover:animate-pulse md:block hidden"
             width={200}
             height={200}
           />
           <div className="flex-col flex space-y-3">
-            <h2 className="text-heliotrope text-center font-base uppercase text-3xl">
+            <h2 className="text-heliotrope text-center font-base uppercase ms:text-3xl text-xl">
               Ishaan
             </h2>
             <div className="links flex">
               <Link href={"https://github.com/ik04"} target="_blank">
                 <Image
                   src={"/assets/github.svg"}
-                  className=""
+                  className="md:w-16 w-10"
                   width={60}
                   height={60}
                 />
@@ -299,7 +303,7 @@ const page = () => {
               >
                 <Image
                   src={"/assets/linkedin.svg"}
-                  className=""
+                  className="md:w-16 w-10"
                   width={60}
                   height={60}
                 />

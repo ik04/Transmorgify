@@ -33,6 +33,10 @@ module.exports = {
         ".text-stroke-sm": {
           "-webkit-text-stroke-width": "0.5px",
         },
+        ".text-stroke-base": {
+          "-webkit-text-stroke-width": "1px",
+        },
+
         ".text-stroke-lg": {
           "-webkit-text-stroke-width": "2px",
         },
