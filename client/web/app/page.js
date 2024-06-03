@@ -105,7 +105,7 @@ const page = () => {
               width={100}
               height={100}
             />
-            <h1 className="md:text-stroke-xl text-stroke-lg font-display md:text-[120px] text-2xl text-center text-main text-stroke-heliotrope uppercase tracking-widest">
+            <h1 className="md:text-stroke-xl text-stroke-base font-display md:text-[120px] text-3xl text-center text-main text-stroke-heliotrope uppercase tracking-widest">
               Transmorgify
             </h1>
             <Image
@@ -134,7 +134,7 @@ const page = () => {
             type="text"
             name="link"
             placeholder="Enter your Link here"
-            className="bg-transparent w-full md:text-3xl px-2 focus:outline-none font-display font-bold placeholder:text-main placeholder:font-display placeholder:font-bold"
+            className="bg-transparent w-full md:text-3xl px-2 text-sm focus:outline-none font-display font-bold placeholder:text-main placeholder:font-display placeholder:font-bold"
             onChange={(e) => setLink(e.target.value)}
           />
           <div
@@ -165,21 +165,21 @@ const page = () => {
             <div className="title flex justify-center items-center">
               <Image
                 src={"/assets/wave-1.svg"}
-                className="skew-x-12"
+                className="skew-x-12 w-12 md:w-28"
                 width={100}
                 height={100}
               />
-              <h1 className="uppercase bg-gradient-to-r from-mediumSlateBlue via-heliotrope to-heliotrope bg-clip-text text-transparent font-display md:text-6xl">
+              <h1 className="uppercase bg-gradient-to-r from-mediumSlateBlue via-heliotrope to-heliotrope bg-clip-text text-transparent font-display md:text-6xl text-4xl">
                 Results
               </h1>
               <Image
                 src={"/assets/wave-1.svg"}
-                className="-skew-x-12"
+                className="-skew-x-12 w-12 md:w-28"
                 width={100}
                 height={100}
               />
             </div>
-            <div className="bg-mediumSlateBlue bg-gradient-to-b from-mediumSlateBlue to-heliotrope md:h-[70%] md:w-[50%] rounded-lg flex flex-col items-center space-y-5 justify-center p-8">
+            <div className="bg-mediumSlateBlue bg-gradient-to-b from-mediumSlateBlue to-heliotrope md:h-[70%] md:w-[50%] w-[90%] rounded-lg flex flex-col items-center space-y-5 justify-center p-8">
               <iframe
                 width="560"
                 height="315"
@@ -191,18 +191,18 @@ const page = () => {
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
-              <div className="title text-main font-display capitalize text-center text-3xl mb-2">
+              <div className="title text-main font-display capitalize text-center md:text-3xl text-xs mb-2">
                 {title}
               </div>
               <div className="buttons flex space-x-5">
                 <div
                   onClick={() => location.reload()}
-                  className="capitalize text-main font-bold font-display rounded-lg py-2 px-4 text-3xl flex items-center space-x-2 cursor-pointer"
+                  className="capitalize text-main font-bold font-display rounded-lg py-2 px-4 md:text-3xl flex items-center space-x-2 cursor-pointer"
                 >
                   <p>Redo</p>
                   <Image
                     src={"/assets/reload.svg"}
-                    className="mt-1"
+                    className="mt-1 w-5 md:w-10"
                     width={40}
                     height={40}
                   />
@@ -210,24 +210,25 @@ const page = () => {
                 <Link
                   href={link}
                   target="_blank"
-                  className="capitalize border-main text-main font-bold font-display border-2 rounded-lg py-1 px-3 text-3xl flex items-center space-x-2 cursor-pointer"
+                  className="capitalize border-main text-main font-bold font-display border-2 rounded-lg py-1 px-4 md:text-3xl flex items-center justify-center md:space-x-2 space-x-1 cursor-pointer"
                 >
                   <p>Visit</p>
                   <Image
                     src={"/assets/open-link.svg"}
-                    className=""
+                    className="w-5 md:w-12"
                     width={50}
                     height={50}
                   />
                 </Link>
                 <Link
                   href={download}
-                  className="capitalize bg-main text-heliotrope border-main font-display border-2 rounded-lg py-1 px-3 text-3xl flex items-center space-x-3 cursor-pointer"
+                  className="capitalize bg-main text-heliotrope border-main font-display border-2 rounded-lg md:py-1 px-3 text-xs
+                   md:text-3xl flex items-center md:space-x-3 cursor-pointer"
                 >
                   <p>Download mp3</p>
                   <Image
                     src={"/assets/download.svg"}
-                    className=""
+                    className="w-5 md:w-10"
                     width={50}
                     height={50}
                   />
