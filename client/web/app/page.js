@@ -17,15 +17,22 @@ const page = () => {
   const isValidYouTubeLink = (url) => {
     const youtubeRegex =
       /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-    return youtubeRegex.test(url);
+    const youtubeMusicRegex = /^(https?:\/\/)?(music\.)?(youtube\.com)\/.+$/;
+    return youtubeRegex.test(url) || youtubeMusicRegex.test(url);
   };
-
+  const convertYouTubeMusicLink = (url) => {
+    const urlObj = new URL(url);
+    if (urlObj.hostname === "music.youtube.com") {
+      urlObj.hostname = "youtube.com";
+    }
+    return urlObj.toString();
+  };
   const callConvertEndpoint = async () => {
+    const convertedLink = convertYouTubeMusicLink(link);
     const resp = await axios.post(
       `${process.env.NEXT_PUBLIC_PUBLIC_DOMAIN}/convert`,
-      { link },
+      { link: convertedLink },
       {
-        withCredentials: true,
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",

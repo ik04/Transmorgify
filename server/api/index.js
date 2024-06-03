@@ -11,8 +11,7 @@ const allowCors = require("../utils/AllowCors");
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
+    credentials: false,
     methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
     allowedHeaders: "Content-Type",
   })
@@ -22,6 +21,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello from Transmorgify ~IK" });
 });
+
 app.post("/convert", async (req, res) => {
   try {
     console.log("Received request:", req.body);
