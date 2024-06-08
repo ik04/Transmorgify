@@ -184,10 +184,10 @@ const page = () => {
                 className="w-full h-full"
                 src={embedLink}
                 title="YouTube video player"
-                frameborder="0"
+                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
               ></iframe>
               <div className="title text-main font-display capitalize text-center md:text-3xl text-xs mb-2">
                 {title}
@@ -205,32 +205,35 @@ const page = () => {
                     height={40}
                   />
                 </div>
-                <Link
-                  href={link}
-                  target="_blank"
-                  className="capitalize border-main text-main font-bold font-display border-2 rounded-lg py-1 px-4 md:text-3xl flex items-center justify-center md:space-x-2 space-x-1 cursor-pointer"
-                >
-                  <p>Visit</p>
-                  <Image
-                    src={"/assets/open-link.svg"}
-                    className="w-5 md:w-12"
-                    width={50}
-                    height={50}
-                  />
-                </Link>
-                <Link
-                  href={download}
-                  className="capitalize bg-main text-heliotrope border-main font-display border-2 rounded-lg md:py-1 px-4 md:px-3 text-xs
-                   md:text-3xl flex items-center justify-center md:space-x-3 cursor-pointer"
-                >
-                  <p>Download mp3</p>
-                  <Image
-                    src={"/assets/download.svg"}
-                    className="w-5 md:w-10"
-                    width={50}
-                    height={50}
-                  />
-                </Link>
+                {link && (
+                  <Link
+                    href={link}
+                    target="_blank"
+                    className="capitalize border-main text-main font-bold font-display border-2 rounded-lg py-1 px-4 md:text-3xl flex items-center justify-center md:space-x-2 space-x-1 cursor-pointer"
+                  >
+                    <p>Visit</p>
+                    <Image
+                      src={"/assets/open-link.svg"}
+                      className="w-5 md:w-12"
+                      width={50}
+                      height={50}
+                    />
+                  </Link>
+                )}
+                {download && (
+                  <Link
+                    href={download}
+                    className="capitalize bg-main text-heliotrope border-main font-display border-2 rounded-lg md:py-1 px-4 md:px-3 text-xs md:text-3xl flex items-center justify-center md:space-x-3 cursor-pointer"
+                  >
+                    <p>Download mp3</p>
+                    <Image
+                      src={"/assets/download.svg"}
+                      className="w-5 md:w-10"
+                      width={50}
+                      height={50}
+                    />
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -316,11 +319,3 @@ const page = () => {
 };
 
 export default page;
-/**
- * hiiiiiiii babyyy!!!!!! ure cuteee, and pretyy, and so handsome, 
-and soo kind, and so smart,
- very goated frfr,and make me want to better person, anyways 
-lyyyyy, good luck for today, have fun at the mall!!!!!!!! 
- * 
- * 
- */
