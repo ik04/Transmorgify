@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
       </Head>
       <body className={inter.className}>
         <Toaster
-          position="top-center"
+          position="bottom-center"
           toastOptions={{
             unstyled: true,
             classNames: {
