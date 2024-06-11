@@ -287,7 +287,7 @@ const page = () => {
             height={200}
           />
           <div className="flex-col flex space-y-3">
-            <h2 className="text-heliotrope text-center font-base uppercase ms:text-3xl text-xl">
+            <h2 className="text-heliotrope text-center font-base uppercase md:text-3xl text-xl">
               Ishaan
             </h2>
             <div className="links flex">
