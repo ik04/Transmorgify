@@ -242,7 +242,7 @@ const page = () => {
       <div className="flex flex-row justify-around items-center md:items-center md:justify-between footer border-t-4 border-heliotrope md:h-60 md:px-20 py-7 px-5">
         <div className="Contributor flex items-center">
           <Image
-            src={"/assets/footer-ghost.png"}
+            src={"/assets/k-ghost.png"}
             className="hover:animate-pulse md:block hidden"
             width={200}
             height={200}
@@ -262,7 +262,7 @@ const page = () => {
               </Link>
               <Link
                 href={
-                  "https://www.linkedin.com/in/kanak-shrivastava-5a71351a9/"
+                  "https://www.linkedin.com/in/kanak-footershrivastava-5a71351a9/"
                 }
                 target="_blank"
               >
@@ -281,7 +281,7 @@ const page = () => {
         </h1>
         <div className="Contributor md:flex-row-reverse flex items-center">
           <Image
-            src={"/assets/footer-ghost.png"}
+            src={"/assets/i-ghost.png"}
             className="hover:animate-pulse md:block hidden"
             width={200}
             height={200}
