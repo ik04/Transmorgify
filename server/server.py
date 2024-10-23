@@ -19,7 +19,7 @@ def download_audio():
     url = data['url']
 
     try:
-        yt = YouTube(url, on_progress_callback=on_progress)
+        yt = YouTube(url, on_progress_callback=on_progress, use_po_token=True)
         print(f"Title: {yt.title}")
 
         audio_stream = yt.streams.filter(only_audio=True).first()
