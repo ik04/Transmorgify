@@ -4,6 +4,7 @@ charset-normalizer==3.4.0
 click==8.1.7
 decorator==4.4.2
 Flask==3.0.3
+Flask-Cors==5.0.0
 idna==3.10
 imageio==2.36.0
 imageio-ffmpeg==0.5.1

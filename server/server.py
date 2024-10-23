@@ -4,8 +4,10 @@ from flask import Flask, request, send_file, jsonify
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
 from pydub import AudioSegment
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000","expose_headers": ["X-Song-Title"]}})
 
 @app.route('/download', methods=['POST'])
 def download_audio():
@@ -35,11 +37,13 @@ def download_audio():
 
         os.remove(temp_audio_file)
 
-        return send_file(mp3_io, as_attachment=True, download_name=f"{yt.title}.mp3", mimetype="audio/mpeg")
+        response = send_file(mp3_io, as_attachment=True, download_name=f"{yt.title}.mp3", mimetype="audio/mpeg")
+        response.headers['X-Song-Title'] = yt.title  
+
+        return response
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
