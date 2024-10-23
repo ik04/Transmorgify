@@ -209,6 +209,18 @@ const page = () => {
               ></iframe>
 
               <div className="buttons flex space-x-5">
+                <div
+                  onClick={() => location.reload()}
+                  className="capitalize text-main font-bold font-display rounded-lg py-2 px-4 md:text-3xl flex items-center space-x-2 cursor-pointer"
+                >
+                  <p>Redo</p>
+                  <Image
+                    src={"/assets/reload.svg"}
+                    className="mt-1 w-5 md:w-10"
+                    width={40}
+                    height={40}
+                  />
+                </div>
                 {link && (
                   <Link
                     href={link}
