@@ -1,13 +1,12 @@
 import os
 import io
 from flask import Flask, request, send_file, jsonify
-from pytubefix import YouTube
-from pytubefix.cli import on_progress
+import yt_dlp
 from pydub import AudioSegment
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://transmorgify.vercel.app","expose_headers": ["X-Song-Title"]}})
+CORS(app, resources={r"/*": {"origins": "https://transmorgify.vercel.app", "expose_headers": ["X-Song-Title"]}})
 
 @app.route('/download', methods=['POST'])
 def download_audio():
@@ -19,26 +18,41 @@ def download_audio():
     url = data['url']
 
     try:
-        yt = YouTube(url, on_progress_callback=on_progress, use_po_token=True)
-        print(f"Title: {yt.title}")
+        # yt-dlp options for downloading audio only
+        ydl_opts = {
+            "format": "bestaudio/best",
+            "outtmpl": "temp_audio.%(ext)s",  # Save as temporary file
+            "quiet": True,
+        }
 
-        audio_stream = yt.streams.filter(only_audio=True).first()
+        # Download audio
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
 
-        if not audio_stream:
-            return jsonify({"error": "No audio stream available"}), 404
+        # Extract title and file path
+        title = info.get("title", "audio")
+        file_path = f"temp_audio.{info['ext']}"
 
-        temp_audio_file = audio_stream.download(filename="temp_audio")
+        if not os.path.exists(file_path):
+            return jsonify({"error": "Download failed"}), 500
 
-        audio = AudioSegment.from_file(temp_audio_file)
-
+        # Convert downloaded file to MP3 using pydub
+        audio = AudioSegment.from_file(file_path)
         mp3_io = io.BytesIO()
         audio.export(mp3_io, format="mp3")
         mp3_io.seek(0)
 
-        os.remove(temp_audio_file)
+        # Clean up temporary file
+        os.remove(file_path)
 
-        response = send_file(mp3_io, as_attachment=True, download_name=f"{yt.title}.mp3", mimetype="audio/mpeg")
-        response.headers['X-Song-Title'] = yt.title  
+        # Create response with MP3 file
+        response = send_file(
+            mp3_io,
+            as_attachment=True,
+            download_name=f"{title}.mp3",
+            mimetype="audio/mpeg"
+        )
+        response.headers['X-Song-Title'] = title  # Expose the title in headers
 
         return response
 
