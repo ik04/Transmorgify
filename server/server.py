@@ -4,16 +4,25 @@ from flask import Flask, request, send_file, jsonify
 import yt_dlp
 from pydub import AudioSegment
 from flask_cors import CORS
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://transmorgify.vercel.app", "expose_headers": ["X-Song-Title"]}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000", "expose_headers": ["X-Song-Title"]}})
 
 @app.route('/download', methods=['POST'])
 def download_audio():
-    COOKIE_DATA = os.getenv("YT_COOKIES")  
+    cookie_data = os.getenv("YT_COOKIES")
+    print("YT_COOKIES:", cookie_data)  
+    if cookie_data is None or cookie_data.strip() == "":
+        return jsonify({"error": "YouTube cookies are missing or empty"}), 400
 
-    with open("cookies.txt", "w") as cookie_file:
-        cookie_file.write(COOKIE_DATA)
+    cookies_file = "cookies.txt"
+    if not os.path.exists(cookies_file) or os.stat(cookies_file).st_size == 0:
+        with open(cookies_file, "w") as cookie_file:
+            cookie_file.write(cookie_data)
 
     data = request.get_json()
 
@@ -21,14 +30,13 @@ def download_audio():
         return jsonify({"error": "URL is required"}), 400
 
     url = data['url']
-    cookies_file = "cookies.txt"  
 
     try:
         ydl_opts = {
             "format": "bestaudio/best",
             "outtmpl": "temp_audio.%(ext)s",
             "quiet": True,
-            "cookiefile": cookies_file, 
+            "cookiefile": cookies_file,
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
