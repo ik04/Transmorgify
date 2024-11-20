@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000", "expose_headers": ["X-Song-Title"]}})
+CORS(app, resources={r"/*": {"origins": "https://transmorgify.vercel.app", "expose_headers": ["X-Song-Title"]}})
 
 @app.route('/download', methods=['POST'])
 def download_audio():
