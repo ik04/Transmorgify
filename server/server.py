@@ -10,11 +10,6 @@ CORS(app, resources={r"/*": {"origins": "https://transmorgify.vercel.app", "expo
 
 @app.route('/download', methods=['POST'])
 def download_audio():
-    COOKIE_DATA = os.getenv("YT_COOKIES")  
-
-    with open("cookies.txt", "w") as cookie_file:
-        cookie_file.write(COOKIE_DATA)
-
     data = request.get_json()
 
     if 'url' not in data:
