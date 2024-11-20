@@ -16,43 +16,39 @@ def download_audio():
         return jsonify({"error": "URL is required"}), 400
 
     url = data['url']
+    cookies_file = "cookies.json"  
 
     try:
-        # yt-dlp options for downloading audio only
         ydl_opts = {
             "format": "bestaudio/best",
-            "outtmpl": "temp_audio.%(ext)s",  # Save as temporary file
+            "outtmpl": "temp_audio.%(ext)s",
             "quiet": True,
+            "cookiefile": cookies_file, 
         }
 
-        # Download audio
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=True)
 
-        # Extract title and file path
         title = info.get("title", "audio")
         file_path = f"temp_audio.{info['ext']}"
 
         if not os.path.exists(file_path):
             return jsonify({"error": "Download failed"}), 500
 
-        # Convert downloaded file to MP3 using pydub
         audio = AudioSegment.from_file(file_path)
         mp3_io = io.BytesIO()
         audio.export(mp3_io, format="mp3")
         mp3_io.seek(0)
 
-        # Clean up temporary file
         os.remove(file_path)
 
-        # Create response with MP3 file
         response = send_file(
             mp3_io,
             as_attachment=True,
             download_name=f"{title}.mp3",
             mimetype="audio/mpeg"
         )
-        response.headers['X-Song-Title'] = title  # Expose the title in headers
+        response.headers['X-Song-Title'] = title  
 
         return response
 
