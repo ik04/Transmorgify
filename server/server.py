@@ -10,12 +10,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://transmorgify.vercel.app", "expose_headers": ["X-Song-Title"]}})
+CORS(app, resources={r"/*": {"origins": os.getenv("CLIENT_URL"), "expose_headers": ["X-Song-Title"]}})
 
 @app.route('/download', methods=['POST'])
 def download_audio():
     cookie_data = os.getenv("YT_COOKIES")
-    print("YT_COOKIES:", cookie_data)  
     if cookie_data is None or cookie_data.strip() == "":
         return jsonify({"error": "YouTube cookies are missing or empty"}), 400
 
@@ -23,6 +22,11 @@ def download_audio():
     if not os.path.exists(cookies_file) or os.stat(cookies_file).st_size == 0:
         with open(cookies_file, "w") as cookie_file:
             cookie_file.write(cookie_data)
+
+    with open(cookies_file, "r") as cookie_file:
+        cookies_content = cookie_file.read()
+        print("Contents of cookies.txt:")
+        print(cookies_content)
 
     data = request.get_json()
 
